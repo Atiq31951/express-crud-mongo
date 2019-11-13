@@ -11,7 +11,7 @@ const EmployeeSchema = new Schema({
         type : String,
         minlength : 11,
         required : false,
-        default: 'default@link3.com'
+        default: 'default@linkline.com'
     },
     phone : {
         type : String,

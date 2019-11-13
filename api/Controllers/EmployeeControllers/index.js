@@ -27,16 +27,13 @@ const postAddEmployeeController = (req, res, next) => {
 const getAllEmployeeController = (req, res, next) => {
     EmployeeModel.find()
     .then(data => {
-        console.log('Message => ', message, data)
+        data.forEach((d, i) => {
+            delete data[i].__v
+            console.log('Index => ', i, data)
+        })
+        console.log('data => ', data)
         res.status(200).json({
-            // message: {
-            //     id,
-            //     email,
-            //     name,
-            //     phone,
-            //     user_id
-            // },
-            message: 'Hello',
+            data,
             error: null
         })
     })
@@ -53,12 +50,11 @@ const getEmployeeByIdController = (req, res, next) => {
     .then(data => {
         res.status(200).json({
             message: {
-                // id: data._id,
-                // email: data.email,
-                // name: data.name,
-                // phone: data.phone,
-                // user_id: data.user_id
-                name: 'Helllllo'
+                id: data._id,
+                email: data.email,
+                name: data.name,
+                phone: data.phone,
+                user_id: data.user_id
             },
             error: null
         })
@@ -72,11 +68,38 @@ const getEmployeeByIdController = (req, res, next) => {
 }
 
 const putUpdateEmployeeController = (req, res, next) => {
-    res.send('Hello from the update employee')
+    delete req.body.id
+    console.log('Req.body => ', req.body)
+    EmployeeModel.findByIdAndUpdate(req.params.id, {$set: req.body})
+    .then(data => {
+        res.status(200).json({
+            data,
+            error: null
+        })
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: 'Error occured',
+            error
+        })
+    })
 }
 
 const deleteEmployeeById = (req, res, next) => {
-    res.send('Hello from the delete employee')
+    EmployeeModel.findByIdAndRemove(req.params.id)
+    .then(data => {
+        console.log('Delete data => ', data)
+        res.status(200).json({
+            message: 'Deleted',
+            error: null
+        })
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: 'Error occured',
+            error
+        })
+    })
 }
 
 module.exports = {

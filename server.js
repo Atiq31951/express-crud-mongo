@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(morgan('dev'))
 // app.use(cors)
-mongoose.connect('mongodb://localhost/db_employee')
+mongoose.connect('mongodb://localhost/db_basic_info')
 
 // Routes to be used
 const employeeRoute = require('./api/routes/EmployeeRoutes/index')
