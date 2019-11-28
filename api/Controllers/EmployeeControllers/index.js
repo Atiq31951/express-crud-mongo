@@ -31,7 +31,6 @@ const getAllEmployeeController = (req, res, next) => {
             delete data[i].__v
             console.log('Index => ', i, data)
         })
-        console.log('data => ', data)
         res.status(200).json({
             data,
             error: null

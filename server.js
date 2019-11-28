@@ -19,5 +19,5 @@ const employeeRoute = require('./api/routes/EmployeeRoutes/index')
 app.use('/employee', employeeRoute)
 // app.use('/user',userRoute)
 
-const PORT = 3000 || process.env.PORT
+const PORT = process.env.PORT || 3000
 app.listen(PORT, ()=> console.log(`server is running on ${PORT}`))
